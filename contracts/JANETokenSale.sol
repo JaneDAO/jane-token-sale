@@ -37,7 +37,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
     address public janeEscrow;
     uint256 public janePerUSD;
     address public hedgeyBatchPlanner;
-    uint256 public constant LOCKUP_PERIOD = 31536000; // 1 year in seconds
+    uint256 public constant APR_30_2024 = 1714460400; // unix timestamp for apr 30, 2024 UTC
 
     constructor(
         address _janeToken,
@@ -81,6 +81,9 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
         );
         janeToken.safeTransferFrom(janeEscrow, address(this), janeAmount);
 
+        require(block.timestamp < APR_30_2024, 'Lock up period is over');
+        uint256 lockUpPeriod = APR_30_2024 - block.timestamp;
+
         // Lock the tokens using BatchPlanner's batchLockingPlans function
         IBatchPlanner.Plan[] memory plans = new IBatchPlanner.Plan[](1);
         plans[0] = IBatchPlanner.Plan({
@@ -88,7 +91,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
             amount: janeAmount,
             start: block.timestamp,
             cliff: 0, // No cliff, can be adjusted
-            rate: janeAmount.div(LOCKUP_PERIOD)
+            rate: janeAmount.div(lockUpPeriod)
         });
 
         SafeERC20.safeIncreaseAllowance(
@@ -101,7 +104,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
             address(janeToken),
             janeAmount,
             plans,
-            1,  // lock-up period is 1 second at which time plan.rate tokens are dispensed, repeating until exhausted
+            1, // lock-up period is 1 second at which time plan.rate tokens are dispensed, repeating until exhausted
             5 // mintType, investor lock up is mint type 5
         );
 
