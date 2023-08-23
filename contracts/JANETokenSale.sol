@@ -15,7 +15,7 @@ interface IBatchPlanner {
         uint256 amount;
         uint256 start;
         uint256 cliff;
-        uint256 janePerUSD;
+        uint256 rate;
     }
 
     function batchLockingPlans(
@@ -88,7 +88,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
             amount: janeAmount,
             start: block.timestamp,
             cliff: 0, // No cliff, can be adjusted
-            janePerUSD: janeAmount.div(LOCKUP_PERIOD)
+            rate: janeAmount.div(LOCKUP_PERIOD)
         });
 
         SafeERC20.safeIncreaseAllowance(
