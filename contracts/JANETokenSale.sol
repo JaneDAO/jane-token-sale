@@ -101,8 +101,8 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
             address(janeToken),
             janeAmount,
             plans,
-            LOCKUP_PERIOD,
-            1 // mintType, assuming 1 for now
+            1,  // lock-up period is 1 second at which time plan.rate tokens are dispensed, repeating until exhausted
+            5 // mintType, investor lock up is mint type 5
         );
 
         // Transfer Ether to the owner
