@@ -9,6 +9,7 @@
 
 ## Notes
 * Chainlink price feeds: https://docs.chain.link/data-feeds/price-feeds/addresses
+* Hedgey deployments: https://hedgey.gitbook.io/hedgey-community-docs/for-developers/resources/deployments/voting-token-lockup-plans
 
 ## TODO
 
