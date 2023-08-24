@@ -13,7 +13,8 @@ async function deploy(
   priceFeed,
   janePerUSD,
   owner,
-  hedgeyBatchPlanner
+  hedgeyBatchPlanner,
+  hedgeyVotingTokenLockUpPlan
 ) {
   // Deploying
   const [deployer] = await ethers.getSigners();
@@ -27,12 +28,13 @@ async function deploy(
     priceFeed,
     janePerUSD,
     owner,
-    hedgeyBatchPlanner
+    hedgeyBatchPlanner,
+    hedgeyVotingTokenLockUpPlan
   );
   await instance.deployed();
 
   console.log(
-    `JANETokenSale deployed to ${instance.address}. janeToken ${janeToken} janeEscrow ${janeEscrow} priceFeed ${priceFeed} janePerUSD ${janePerUSD} owner ${owner} hedgeyBatchPlanner ${hedgeyBatchPlanner}`
+    `JANETokenSale deployed to ${instance.address}. janeToken ${janeToken} janeEscrow ${janeEscrow} priceFeed ${priceFeed} janePerUSD ${janePerUSD} owner ${owner} hedgeyBatchPlanner ${hedgeyBatchPlanner} hedgeyVotingTokenLockUpPlan ${hedgeyVotingTokenLockUpPlan}`
   );
 
   return instance;
@@ -41,13 +43,22 @@ async function deploy(
 if (!process.env.TESTING) {
   // We recommend this pattern to be able to use async/await everywhere
   // and properly handle errors.
-  const [name, symbol, firstHolder] = settings([
+  const [
+    janeToken,
+    janeEscrow,
+    priceFeed,
+    janePerUSD,
+    owner,
+    hedgeyBatchPlanner,
+    hedgeyVotingTokenLockUpPlan,
+  ] = settings([
     'JANE_TOKEN',
     'JANE_ESCROW',
     'PRICE_FEED',
     'JANE_PER_USD',
     'OWNER',
     'HEDGEY_BATCH_PLANNER',
+    'HEDGEY_VOTING_TOKEN_LOCKUP_PLAN',
   ]);
   deploy(
     janeToken,
@@ -55,7 +66,8 @@ if (!process.env.TESTING) {
     priceFeed,
     janePerUSD,
     owner,
-    hedgeyBatchPlanner
+    hedgeyBatchPlanner,
+    hedgeyVotingTokenLockUpPlan
   ).catch((error) => {
     console.error(error);
     process.exitCode = 1;

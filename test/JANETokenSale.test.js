@@ -13,13 +13,21 @@ describe('JANETokenSale', function () {
     buyer,
     aggregator,
     hedgeyBatchPlanner,
+    hedgeyVotingTokenLockUpPlan,
     janeToken,
     janeTokenSale,
     janePerUSD;
 
   beforeEach(async () => {
-    [owner, beneficiary, janeEscrow, buyer, aggregator, hedgeyBatchPlanner] =
-      await ethers.getSigners();
+    [
+      owner,
+      beneficiary,
+      janeEscrow,
+      buyer,
+      aggregator,
+      hedgeyBatchPlanner,
+      hedgeyVotingTokenLockUpPlan,
+    ] = await ethers.getSigners();
 
     const JaneToken = await ethers.getContractFactory('MockERC20');
     janeToken = await JaneToken.deploy('JANE Token', 'JANE');
@@ -36,7 +44,7 @@ describe('JANETokenSale', function () {
     hedgeyBatchPlanner = await MockBatchPlanner.deploy();
     await hedgeyBatchPlanner.deployed();
 
-    janePerUSD = 267;
+    janePerUSD = 266;
 
     janeTokenSale = await deploy(
       janeToken.address,
@@ -44,7 +52,8 @@ describe('JANETokenSale', function () {
       priceFeed.address,
       janePerUSD,
       owner.address,
-      hedgeyBatchPlanner.address
+      hedgeyBatchPlanner.address,
+      hedgeyVotingTokenLockUpPlan.address
     );
   });
 

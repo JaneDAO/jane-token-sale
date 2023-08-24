@@ -5,6 +5,10 @@
 ### Ethereum Mainnet
 
 ### Goerli Testnet
+* `0x2Fc5cC67cc21F5453B758b32AAA2C40b98b18862` [etherscan](https://goerli.etherscan.io/address/0x2Fc5cC67cc21F5453B758b32AAA2C40b98b18862) 
+
+## Notes
+* Chainlink price feeds: https://docs.chain.link/data-feeds/price-feeds/addresses
 
 ## TODO
 

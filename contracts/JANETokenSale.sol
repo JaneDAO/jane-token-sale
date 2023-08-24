@@ -37,6 +37,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
     address public janeEscrow;
     uint256 public janePerUSD;
     address public hedgeyBatchPlanner;
+    address public hedgeyVotingTokenLockUpPlan;
     uint256 public constant APR_30_2024 = 1714460400; // unix timestamp for apr 30, 2024 UTC
 
     constructor(
@@ -45,7 +46,8 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
         address _priceFeed,
         uint256 _janePerUSD,
         address _owner,
-        address _hedgeyBatchPlanner
+        address _hedgeyBatchPlanner,
+        address _hedgeyVotingTokenLockUpPlan
     ) {
         janeToken = IERC20(_janeToken);
         priceFeed = AggregatorV3Interface(_priceFeed);
@@ -53,6 +55,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
         transferOwnership(_owner);
         janeEscrow = _janeEscrow;
         hedgeyBatchPlanner = _hedgeyBatchPlanner;
+        hedgeyVotingTokenLockUpPlan = _hedgeyVotingTokenLockUpPlan;
     }
 
     function getCurrentEthUsdPrice() public view returns (int) {
@@ -100,7 +103,7 @@ contract JANETokenSale is ReentrancyGuard, Ownable {
             janeAmount
         );
         IBatchPlanner(hedgeyBatchPlanner).batchLockingPlans(
-            hedgeyBatchPlanner,
+            hedgeyVotingTokenLockUpPlan,
             address(janeToken),
             janeAmount,
             plans,
