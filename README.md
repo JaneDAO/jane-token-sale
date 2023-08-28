@@ -3,6 +3,7 @@
 ## Deployments
 
 ### Ethereum Mainnet
+* `0x8314CAC2c632C7383ABE3068dEEa1E9D79A09794` [etherscan](https://etherscan.io/address/0x8314CAC2c632C7383ABE3068dEEa1E9D79A09794)
 
 ### Goerli Testnet
 * `0x2Fc5cC67cc21F5453B758b32AAA2C40b98b18862` [etherscan](https://goerli.etherscan.io/address/0x2Fc5cC67cc21F5453B758b32AAA2C40b98b18862)

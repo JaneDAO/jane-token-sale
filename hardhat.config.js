@@ -28,7 +28,7 @@ if(process.env.DEPLOY || process.env.VERIFY) {
       accounts: {
         mnemonic: MNEMONIC
       },
-      gasPrice: 18e9
+      gasPrice: 43e9
     }
   };
 
